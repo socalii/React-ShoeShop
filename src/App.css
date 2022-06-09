@@ -4,3 +4,8 @@
   background-size: cover;
   background-position: center;
 }
+
+.link {
+  color: inherit;
+  text-decoration: none;
+}

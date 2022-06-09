@@ -2,9 +2,12 @@ import './App.css'
 import { Button, Navbar, Container, Nav } from 'react-bootstrap'
 import data from './data'
 import { useState } from 'react'
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
+import Detail from './routes/Detail'
 
 function App() {
   let [shoes] = useState(data)
+  let navigate = useNavigate()
 
   return (
     <div className='App'>
@@ -12,21 +15,78 @@ function App() {
         <Container>
           <Navbar.Brand href='#home'>ShoeShop</Navbar.Brand>
           <Nav className='me-auto'>
-            <Nav.Link href='#home'>Home</Nav.Link>
-            <Nav.Link href='#features'>Cart</Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate('/')
+              }}
+            >
+              Home
+            </Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate('./detail')
+              }}
+            >
+              Detail
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
 
-      <div className='main-bg'></div>
+      <Link className='link' to='/'>
+        Home{' '}
+      </Link>
+      <Link className='link' to='/detail'>
+        Detail
+      </Link>
 
-      <div className='container'>
-        <div className='row'>
-          <Card shoes={shoes[0]} i={1} />
-          <Card shoes={shoes[1]} i={2} />
-          <Card shoes={shoes[2]} i={3} />
-        </div>
-      </div>
+      <Routes>
+        <Route
+          path='/'
+          element={
+            <>
+              <div className='main-bg'></div>
+              <div className='container'>
+                <div className='row'>
+                  {shoes.map((a, i) => {
+                    return <Card shoes={shoes[i]} i={i + 1}></Card>
+                  })}
+                </div>
+              </div>
+            </>
+          }
+        />
+        <Route path='/detail/:id' element={<Detail shoes={shoes} />} />
+        {/* <Route path='/about' element={<About />}>
+          <Route path='member' element={<div>Member</div>}></Route>
+          <Route path='location' element={<div>Location</div>}></Route>
+        </Route>
+        <Route path='/event' element={<Event />}>
+          <Route
+            path='one'
+            element={<div>Free gift on the first order</div>}
+          ></Route>
+          <Route path='two' element={<div>Birthday Coupons!</div>}></Route>
+        </Route> */}
+        <Route path='*' element={<div>404 Errors</div>} />
+      </Routes>
+    </div>
+  )
+}
+
+function About() {
+  return (
+    <div>
+      <h4>Company Info</h4>
+      <Outlet></Outlet>
+    </div>
+  )
+}
+function Event() {
+  return (
+    <div>
+      <h4>Today's Event!!</h4>
+      <Outlet></Outlet>
     </div>
   )
 }
