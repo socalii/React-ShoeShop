@@ -1,5 +1,17 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import styled from 'styled-components'
+
+const Box = styled.div`
+  background: grey;
+  padding: 20px;
+`
+
+const Btn = styled.button`
+  background: ${(props) => props.bg};
+  color: ${(props) => (props.bg === 'blue' ? 'white' : 'black')};
+  padding: 10px;
+`
 
 function Detail(props) {
   let { id } = useParams()
@@ -8,6 +20,10 @@ function Detail(props) {
 
   return (
     <div className='container'>
+      <Btn bg='blue'>Button</Btn>
+      <Btn bg='orange'>Button</Btn>
+      <Btn bg='yellow'>Button</Btn>
+
       <div className='row'>
         <div className='col-md-6'>
           <img
