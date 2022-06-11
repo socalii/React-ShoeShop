@@ -4,9 +4,10 @@ import data from './data'
 import { useState } from 'react'
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import Detail from './routes/Detail'
+import axios from 'axios'
 
 function App() {
-  let [shoes] = useState(data)
+  let [shoes, setShoes] = useState(data)
   let navigate = useNavigate()
 
   return (
@@ -53,6 +54,21 @@ function App() {
                   })}
                 </div>
               </div>
+              <button
+                onClick={() => {
+                  axios
+                    .get('https://codingapple1.github.io/shop/data2.json')
+                    .then((res) => {
+                      const copyShoes = [...shoes, ...res.data]
+                      setShoes(copyShoes)
+                    })
+                    .catch(() => {
+                      console.log('Failed')
+                    })
+                }}
+              >
+                Button
+              </button>
             </>
           }
         />

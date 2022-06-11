@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { useEffect, useState } from 'react'
+import { Nav } from 'react-bootstrap'
 
 // const Box = styled.div`
 //   background: grey;
@@ -21,6 +22,7 @@ function Detail(props) {
 
   // const [alert, setAlert] = useState(true)
   const [num, setNum] = useState('')
+  const [tab, setTab] = useState(0)
 
   useEffect(() => {
     // setTimeout(() => {
@@ -64,8 +66,54 @@ function Detail(props) {
           <button className='btn btn-danger'>ORDER</button>
         </div>
       </div>
+
+      <Nav variant='tabs' defaultActiveKey='link0'>
+        <Nav.Item>
+          <Nav.Link
+            onClick={() => {
+              setTab(0)
+            }}
+            eventKey='link0'
+          >
+            Button0
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            onClick={() => {
+              setTab(1)
+            }}
+            eventKey='link1'
+          >
+            Button1
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            onClick={() => {
+              setTab(2)
+            }}
+            eventKey='link2'
+          >
+            Button2
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+      <TabContent tab={tab} />
     </div>
   )
+}
+
+function TabContent(props) {
+  if (props.tab === 0) {
+    return <div>Content0</div>
+  }
+  if (props.tab === 1) {
+    return <div>Content1</div>
+  }
+  if (props.tab === 2) {
+    return <div>Content2</div>
+  }
 }
 
 export default Detail
