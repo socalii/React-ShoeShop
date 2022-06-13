@@ -104,16 +104,35 @@ function Detail(props) {
   )
 }
 
-function TabContent(props) {
-  if (props.tab === 0) {
-    return <div>Content0</div>
-  }
-  if (props.tab === 1) {
-    return <div>Content1</div>
-  }
-  if (props.tab === 2) {
-    return <div>Content2</div>
-  }
+function TabContent({ tab }) {
+  // if (tab === 0) {
+  //   return <div>Content0</div>
+  // }
+  // if (tab === 1) {
+  //   return <div>Content1</div>
+  // }
+  // if (tab === 2) {
+  //   return <div>Content2</div>
+  // }
+
+  let [fade, setFade] = useState('')
+
+  useEffect(() => {
+    const a = setTimeout(() => {
+      setFade('end')
+    }, 10)
+
+    return () => {
+      clearTimeout(a)
+      setFade('')
+    }
+  }, [tab])
+
+  return (
+    <div className={`start ${fade}`}>
+      {[<div>Content0</div>, <div>Content1</div>, <div>Content2</div>][tab]}
+    </div>
+  )
 }
 
 export default Detail
